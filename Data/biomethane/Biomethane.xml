@@ -1,0 +1,179 @@
+﻿<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>Anelia Milbrandt, NREL, Sr. Analyst</origin>
+        <pubdate>20141030</pubdate>
+        <title>Biomethane</title>
+        <geoform>vector digital data</geoform>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>This dataset contains estimates of the methane generation potential by county from the following biogas sources: landfills, animal manure; wastewater treatment; and industrial, institutional, and commercial organic waste (IIC).</abstract>
+      <purpose>The purpose of this dataset is to illustrate the methane potential from biogas sources in the United States by county.</purpose>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <rngdates>
+          <begdate>20071030</begdate>
+          <enddate>20130430</enddate>
+        </rngdates>
+      </timeinfo>
+      <current>Contiguous United States, Alaska and Hawaii</current>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>Unknown</update>
+    </status>
+    <spdom>
+      <bounding>
+        <westbc>-178.227822</westbc>
+        <eastbc>-66.950005</eastbc>
+        <northbc>71.390482</northbc>
+        <southbc>18.910787</southbc>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>None</themekt>
+        <themekey>Methane, biomethane, biogas</themekey>
+      </theme>
+    </keywords>
+    <accconst>None</accconst>
+    <useconst>This GIS data was developed by the National Renewable Energy Laboratory ("NREL"), which is operated by the Alliance for Sustainable Energy, LLC for the U.S. Department of Energy ("DOE"). The user is granted the right, without any fee or cost, to use, copy, modify, alter, enhance and distribute this data for any purpose whatsoever, provided that this entire notice appears in all copies of the data. Further, the user of this data agrees to credit NREL in any publications or software that incorporate or use the data. Access to and use of the GIS data shall further impose the following obligations on the User. The names DOE/NREL may not be used in any advertising or publicity to endorse or promote any product or commercial entity using or incorporating the GIS data unless specific written authorization is obtained from DOE/NREL. The User also understands that DOE/NREL shall not be obligated to provide updates, support, consulting, training or assistance of any kind whatsoever with regard to the use of the GIS data. THE GIS DATA IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL DOE/NREL BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER, INCLUDING BUT NOT LIMITED TO CLAIMS ASSOCIATED WITH THE LOSS OF DATA OR PROFITS, WHICH MAY RESULT FROM AN ACTION IN CONTRACT, NEGLIGENCE OR OTHER TORTIOUS CLAIM THAT ARISES OUT OF OR IN CONNECTION WITH THE ACCESS OR USE OF THE GIS DATA. The User acknowledges that access to the GIS data is subject to U.S. Export laws and regulations and any use or transfer of the GIS data must be authorized under those regulations. The User shall not use, distribute, transfer, or transmit GIS data or any products incorporating the GIS data except in compliance with U.S. export regulations. If requested by DOE/NREL, the User agrees to sign written assurances and other export-related documentation as may be required to comply with U.S. export regulations.</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>NREL</cntorg>
+          <cntper>Anelia Milbrandt</cntper>
+        </cntorgp>
+        <cntaddr>
+          <addrtype>mailing</addrtype>
+          <address>15013 Denver West Parkway</address>
+          <city>Golden</city>
+          <state>Colorado</state>
+          <postal>80401</postal>
+        </cntaddr>
+        <cntvoice>303-275-4633</cntvoice>
+      </cntinfo>
+    </ptcontac>
+    <datacred>National Renewable Energy Laboratory</datacred>
+    <native>Microsoft Windows 7 Version 6.1 (Build 7601) Service Pack 1; Esri ArcGIS 10.2.0.3348</native>
+  </idinfo>
+  <spdoinfo>
+    <direct>Vector</direct>
+    <ptvctinf>
+      <sdtsterm>
+        <sdtstype>GT-polygon composed of chains</sdtstype>
+        <ptvctcnt>3141</ptvctcnt>
+      </sdtsterm>
+    </ptvctinf>
+  </spdoinfo>
+  <spref>
+    <horizsys>
+      <geograph>
+        <latres>8.983152841195215e-009</latres>
+        <longres>8.983152841195215e-009</longres>
+        <geogunit>Decimal Degrees</geogunit>
+      </geograph>
+      <geodetic>
+        <horizdn>D WGS 1984</horizdn>
+        <ellips>WGS 1984</ellips>
+        <semiaxis>6378137.0</semiaxis>
+        <denflat>298.257223563</denflat>
+      </geodetic>
+    </horizsys>
+  </spref>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>Biomethane</enttypl>
+        <enttypd>County</enttypd>
+        <enttypds>ESRI</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>FID</attrlabl>
+        <attrdef>Internal feature number.</attrdef>
+        <attrdefs>Esri</attrdefs>
+        <attrdomv>
+          <udom>Sequential unique whole numbers that are automatically generated.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Shape</attrlabl>
+        <attrdef>Feature geometry.</attrdef>
+        <attrdefs>Esri</attrdefs>
+        <attrdomv>
+          <udom>Coordinates defining the features.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>ObjectID</attrlabl>
+        <attrdef>Object ID</attrdef>
+        <attrdefs>ESRI</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>NAME</attrlabl>
+        <attrdef>County name</attrdef>
+        <attrdefs>ESRI</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>STATE_NAME</attrlabl>
+        <attrdef>State name</attrdef>
+        <attrdefs>ESRI</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>FIPS</attrlabl>
+        <attrdef>County FIPS</attrdef>
+        <attrdefs>ESRI</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>OWCH4t</attrlabl>
+        <attrdef>Methane generation potential from industrial, institutional, and commercial organic waste (in metric tons/year). This analysis estimates the methane generation potential from food manufacturing and wholesalers (e.g. fruit and vegetable canneries, dairy creameries, meat packing and processors, etc.), as well as institutional facilities such as hospitals, nursing homes, educational and correctional facilities. It uses data from the U.S. Census Bureau's County Business Patterns 2012, and the Homeland Security Infrastructure Program (HSIP) 2012 which is further processed to estimate the amount of these resources by county. </attrdef>
+        <attrdefs>NREL</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>AMCH4t</attrlabl>
+        <attrdef>Methane generation potential from animal manure (in metric tons/year). The following animal types were included in this analysis: dairy cows, hogs, and chickens (broilers). The methane generation potential was calculated by animal type and manure management system at county level using data from the USDA, National Agricultural Statistics Service, 2007 Census. </attrdef>
+        <attrdefs>NREL</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>WWTPCH4t</attrlabl>
+        <attrdef>Methane generation potential from wastewater treatment (in metric tons/year). This analysis estimates the methane generation potential of wastewater treatment plants using methodology from the EPA's Inventory of U.S. Greenhouse Gas Emissions and Sinks: 1990-2011 and data from the EPA Clean Watersheds Needs Survey (2008). The results were further aggregated to county level. </attrdef>
+        <attrdefs>NREL</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>LFGCH4t</attrlabl>
+        <attrdef>Methane emissions from landfills (in metric tons/year). The methane emissions are estimated at each landfill considering total waste in place, status (open or closed), and waste acceptance rate using data from EPA's EMOP database (as of April 2013), and then aggregated to county level. Note: this analysis includes "candidate" landfills only. EPA's Landfill Methane Outreach Program (LMOP) defines a candidate landfill as one that is accepting waste or has been closed for five years or less, has at least one million tons of waste, and does not have an operational or under-construction project; candidate landfills are also designated based on actual interest or planning. </attrdef>
+        <attrdefs>NREL</attrdefs>
+      </attr>
+      <attr>
+        <attrlabl>TotalCH4t</attrlabl>
+        <attrdef>Total methane generation potential by county from the following biogas sources: landfills, animal manure; wastewater treatment; and industrial, institutional, and commercial organic waste. Data in metric tons/year.</attrdef>
+        <attrdefs>NREL</attrdefs>
+      </attr>
+    </detailed>
+  </eainfo>
+  <metainfo>
+    <metd>20141023</metd>
+    <metc>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>NREL</cntorg>
+          <cntper>Anelia Milbrandt</cntper>
+        </cntorgp>
+        <cntaddr>
+          <addrtype>mailing</addrtype>
+          <address>15013 Denver West Parkway</address>
+          <city>Golden</city>
+          <state>Colorado</state>
+          <postal>80401</postal>
+        </cntaddr>
+        <cntvoice>303-275-4633</cntvoice>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001-1998</metstdv>
+    <mettc>local time</mettc>
+  </metainfo>
+</metadata>
