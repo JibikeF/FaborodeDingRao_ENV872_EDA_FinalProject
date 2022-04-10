@@ -16,11 +16,47 @@ library(sf)
 library(mapview)
 library(RColorBrewer)
 ```
-Reading the shapefile on biogas
+Reading the shapefile on biogas. Examining its characteristics.
 
 ```{r}
 biogas_sf<- st_read('../Data/biomethane/Biomethane.shp')
 colnames(biogas_sf)
+
+biogas_california_sf<- st_read('../Data/biomethane/Biomethane.shp') %>%
+  filter(STATE_NAME == "California")
+
+str(biogas_california_sf)
+summary(biogas_california_sf)
+st_crs(biogas_california_sf) # WGS 84, EPSG 4326
+st_bbox(biogas_california_sf)
+head(biogas_california_sf)
+
+```
+
+Preliminary map view and ggplot of methane generation potential from waste water 
+treatment in California.
+
+```{r}
+
+mapView(biogas_california_sf, zcol = "WWTPCH4t")
+
+ggplot(data=biogas_california_sf) +
+  geom_sf(aes(fill=WWTPCH4t)) + 
+  scale_fill_continuous(type='viridis')
+
+```
+
+Wrangling the population dataset below:
+
+```{r}
+population_sf <- st_read('../Data/2010_Census_Urban_Areas/2010_Census_Urban_Areas.shp')
+population_tracts_sf <- st_read('../Data/2010_Census_Tracts/2010_Census_Tracts.shp')
+
+str(population_sf)
+summary(population_sf)
+st_crs(population_sf) # WGS 84, EPSG 4326
+st_bbox(population_sf)
+head(population_sf)
 
 ```
 
