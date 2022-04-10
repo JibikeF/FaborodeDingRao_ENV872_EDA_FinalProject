@@ -25,8 +25,11 @@ colnames(biogas_sf)
 biogas_california_sf<- st_read('../Data/biomethane/Biomethane.shp') %>%
   filter(STATE_NAME == "California")
 
+<<<<<<< HEAD
 class(biogas_california_sf$NAME)
 
+=======
+>>>>>>> b832c420e6f54d51df1f719b4ecaeda6d0edc077
 str(biogas_california_sf)
 summary(biogas_california_sf)
 st_crs(biogas_california_sf) # WGS 84, EPSG 4326
@@ -45,6 +48,7 @@ mapView(biogas_california_sf, zcol = "WWTPCH4t")
 ggplot(data=biogas_california_sf) +
   geom_sf(aes(fill=WWTPCH4t)) + 
   scale_fill_continuous(type='viridis')
+<<<<<<< HEAD
 
 ```
 
@@ -89,3 +93,22 @@ ggplot(biogas_pop_join,aes(x=Population,y=WWTPCH4t)) +
        x="Population")
 ```
 
+=======
+
+```
+
+Wrangling the population dataset below:
+
+```{r}
+population_sf <- st_read('../Data/2010_Census_Urban_Areas/2010_Census_Urban_Areas.shp')
+population_tracts_sf <- st_read('../Data/2010_Census_Tracts/2010_Census_Tracts.shp')
+
+str(population_sf)
+summary(population_sf)
+st_crs(population_sf) # WGS 84, EPSG 4326
+st_bbox(population_sf)
+head(population_sf)
+
+```
+
+>>>>>>> b832c420e6f54d51df1f719b4ecaeda6d0edc077
