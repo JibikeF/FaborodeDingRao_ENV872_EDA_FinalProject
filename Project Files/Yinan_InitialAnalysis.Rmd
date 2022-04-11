@@ -15,6 +15,7 @@ library(lubridate)
 library(sf)
 library(mapview)
 library(RColorBrewer)
+library(cowplot)
 ```
 Reading the shapefile on biogas. Examining its characteristics.
 
@@ -104,9 +105,62 @@ Plot_pop_CH4 <-
   ggtitle("Biogas Generation Potential v.s. Population in California")+
   mytheme
   print(Plot_pop_CH4)  
+  
+#Based on previous analysis, we reject our null hypothesis because the biogas generation potential and population is posively correlated with a statistically significant p-value. However, we still want to know Which biogas source is contributing to the highest correlation with Population.
+  
+OW_Plot <- 
+  ggplot(biogas_pop_join, aes(x = OWCH4t, y = Population)) +
+  geom_point(alpha=2, color = "Red") +
+  geom_smooth(method = "lm", se = FALSE)+
+  xlim(0, 110000) +
+  ylim(0, 5.0e+06)+
+  labs(y= "Population Density", x = "Organic Waste")+
+  ggtitle("Organic Waste Methane Generation Potential")+
+  mytheme
+  print(OW_Plot)  
+  
+AM_Plot <- 
+  ggplot(biogas_pop_join, aes(x = AMCH4t, y = Population)) +
+  geom_point(alpha=2, color = "Blue") +
+  geom_smooth(method = "lm", se = FALSE)+
+  xlim(0, 110000) +
+  ylim(0, 5.0e+06)+
+  labs(y= "Population Density", x = "Animal Manure")+
+  ggtitle("Animal Manure Methane Generation Potential")+
+  mytheme
+  print(AM_Plot)  
+  
+  
+WWTP_Plot <- 
+  ggplot(biogas_pop_join, aes(x = WWTPCH4t, y = Population)) +
+  geom_point(alpha=2, color = "Green") +
+  geom_smooth(method = "lm", se = FALSE)+
+  xlim(0, 110000) +
+  ylim(0, 5.0e+06)+
+  labs(y= "Population Density", x = "Wastewater")+
+  ggtitle("Waste Water Methane Generation Potential")+
+  mytheme
+  print(WWTP_Plot)   
+  
+LF_Plot <- 
+  ggplot(biogas_pop_join, aes(x = LFGCH4t, y = Population)) +
+  geom_point(alpha=2, color = "Blue") +
+  geom_smooth(method = "lm", se = FALSE)+
+  xlim(0, 110000) +
+  ylim(0, 5.0e+06)+
+  labs(y= "Population Density", x = "Landfill")+
+  ggtitle("Landfill Methane Generation Potential")+
+  mytheme
+  print(LF_Plot)  
 
-
+  Combinedplot <- plot_grid(
+    OW_Plot,AM_Plot,WWTP_Plot,LF_Plot
+  )
+  print(Combinedplot)
+  
 Cal_population <- cbind(biogas_pop_join$Population,biogas_pop_join$Population, biogas_pop_join$Population, biogas_pop_join$Population)
 Biogas_source <- cbind(biogas_pop_join$OWCH4t,biogas_pop_join$AMCH4t, biogas_pop_join$WWTPCH4t, biogas_pop_join$LFGCH4t)
 matplot(Cal_population,Biogas_source, type='p')
+
+
 ```
