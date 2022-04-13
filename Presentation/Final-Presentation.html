@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>EDA Final Project</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jibike Faborode, Yinan Ding, Abhay Rao" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# EDA Final Project
+## Exploring Determinants of Biogas Generation Potential in California and North Carolina
+### Jibike Faborode, Yinan Ding, Abhay Rao
+### Duke University
+### 2022/04/12
+
+---
+
+
+class: right, bottom
+background-image: url(https://ifsolutions.com/wp-content/uploads/2020/11/what-is-biogas-fuel-production.jpg)
+background-position: 50% 50%
+background-size: contain
+Image credit: [Wikimedia Commons](https://ifsolutions.com/wp-content/uploads/2020/11/what-is-biogas-fuel-production.jpg)
+
+
+---
+class: top left, inverse
+background-image: url(https://images.all-free-download.com/images/graphiclarge/project_diagram_sign_flat_geometry_arrows_directional_sketch_6921116.jpg)
+background-size: 200px 200px
+background-position: 85% 35%
+
+# Presentation Outline
+
+
+* Research Question
+* Data Set
+
+* Data Wrangling
+
+* Data Analysis
+
+* Results of Analysis
+
+* Conclusion
+
+
+
+
+
+
+---
+class: top left, inverse
+background-image: url(https://ifsolutions.com/wp-content/uploads/2020/11/what-is-biogas-fuel-production.jpg)
+background-position: 50% 85%
+background-size: 800px 350px
+
+# Research Questions
+
+
+1. Does biogas generation potential from wastewater plants have a correlation with the population of surrounding areas?
+
+2. Are there other factors to consider as well?
+
+
+---
+class: left, inverse
+
+# Data Sets
+
+##Biomethane Geospatial Dataset
+* Source: National Renewable Energy Laboratory (NREL)
+
+* Methane generation potential by county from biogas sources (landfills, animal manure; wastewater treatment; and industrialorganic waste)
+
+
+##Population by state
+* Source:United States Census Bureau
+
+* 2020 Census data for California 
+
+
+
+
+
+---
+class: center, middle, inverse
+
+#Data Wrangling and Exploration
+
+--
+
+
+--
+
+
+--
+
+
+
+--
+
+
+
+
+---
+
+class: center, inverse
+# Data Analysis
+
+--
+class: center, inverse
+#Results of Data Analysis
+
+##Null Hypothesis: There is no correlation between biogas generation potential and population density
+
+##Alternative: There is correlation with population
+
+--
+class: center, inverse
+#Results of Data Analysis
+
+
+```
+## 
+## 	Pearson's product-moment correlation
+## 
+## data:  biogas_pop_join$TotalCH4t and biogas_pop_join$Population
+## t = 10.664, df = 56, p-value = 4.22e-15
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.7105014 0.8889208
+## sample estimates:
+##      cor 
+## 0.818573
+```
+
+```
+## 
+## Call:
+## lm(formula = biogas_pop_join$TotalCH4t ~ biogas_pop_join$Population)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -35192  -8136  -5992  -3514  76087 
+## 
+## Coefficients:
+##                             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                5.739e+03  2.958e+03    1.94   0.0574 .  
+## biogas_pop_join$Population 1.967e-02  1.844e-03   10.66 4.22e-15 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 20420 on 56 degrees of freedom
+## Multiple R-squared:  0.6701,	Adjusted R-squared:  0.6642 
+## F-statistic: 113.7 on 1 and 56 DF,  p-value: 4.22e-15
+```
+
+--
+class: left, inverse
+#Results of Data Analysis
+plot(regression_pop_CH4)
+
+![](Final-Presentation_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;![](Final-Presentation_files/figure-html/unnamed-chunk-4-2.png)&lt;!-- --&gt;![](Final-Presentation_files/figure-html/unnamed-chunk-4-3.png)&lt;!-- --&gt;![](Final-Presentation_files/figure-html/unnamed-chunk-4-4.png)&lt;!-- --&gt;
+
+--
+##Based on previous analysis, we reject our null hypothesis (i.e. biogas generation potential and population is posively correlated with a statistically significant p-value. 
+
+## However, we still want to know Which biogas source is contributing to the highest correlation with Population.
+
+--
+class: left, inverse
+#Results of Data Analysis
+
+
+```
+## `geom_smooth()` using formula 'y ~ x'
+```
+
+```
+## Warning: Removed 1 rows containing non-finite values (stat_smooth).
+```
+
+```
+## Warning: Removed 1 rows containing missing values (geom_point).
+```
+
+![](Final-Presentation_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+--
+class: left, inverse
+#Results of Data Analysis
+
+```
+## `geom_smooth()` using formula 'y ~ x'
+```
+
+```
+## Warning: Removed 1 rows containing non-finite values (stat_smooth).
+```
+
+```
+## Warning: Removed 1 rows containing missing values (geom_point).
+```
+
+```
+## `geom_smooth()` using formula 'y ~ x'
+```
+
+```
+## Warning: Removed 1 rows containing non-finite values (stat_smooth).
+## Removed 1 rows containing missing values (geom_point).
+```
+
+```
+## `geom_smooth()` using formula 'y ~ x'
+```
+
+```
+## Warning: Removed 1 rows containing non-finite values (stat_smooth).
+## Removed 1 rows containing missing values (geom_point).
+```
+
+```
+## `geom_smooth()` using formula 'y ~ x'
+```
+
+```
+## Warning: Removed 1 rows containing non-finite values (stat_smooth).
+## Removed 1 rows containing missing values (geom_point).
+```
+
+![](Final-Presentation_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+
+--
+class: left, inverse
+#Results of Data Analysis
+![](Final-Presentation_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+---
+
+
+class: left, inverse
+#Conclusion
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
