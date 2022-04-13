@@ -15,6 +15,7 @@ library(lubridate)
 library(sf)
 library(mapview)
 library(RColorBrewer)
+library(cowplot)
 ```
 Reading the shapefile on biogas. Examining its characteristics.
 
@@ -40,12 +41,48 @@ treatment in California.
 
 ```{r}
 
-mapView(biogas_california_sf, zcol = "WWTPCH4t")
+mapView(biogas_california_sf, zcol = "TotalCH4t")
 
-ggplot(data=biogas_california_sf) +
+Total_ch4_plot <-ggplot(data=biogas_california_sf) +
+  geom_sf(aes(fill=TotalCH4t)) + 
+  scale_fill_continuous(type='viridis')+
+  labs(title='Total CH4 Potential, CA (MT per year)',
+  )
+print(Total_ch4_plot)
+ 
+WW_ch4_plot <- ggplot(data=biogas_california_sf) +
   geom_sf(aes(fill=WWTPCH4t)) + 
-  scale_fill_continuous(type='viridis')
-<<<<<<< HEAD
+  scale_fill_continuous(type='viridis')+
+  labs(title='Wastewater Derived CH4 Potential, CA (MT per year)',
+  )
+print(WW_ch4_plot)
+
+Landfill_ch4_plot <- ggplot(data=biogas_california_sf) +
+  geom_sf(aes(fill=LFGCH4t)) + 
+  scale_fill_continuous(type='viridis')+
+  labs(title='Landfill Derived CH4 Potential, CA (MT per year)',
+  )
+print(Landfill_ch4_plot)
+
+OW_ch4_plot <- ggplot(data=biogas_california_sf) +
+  geom_sf(aes(fill=OWCH4t)) + 
+  scale_fill_continuous(type='viridis')+
+  labs(title='Commercial Organic Waste Derived CH4 Potential, CA (MT per year)',
+  )
+print(OW_ch4_plot)
+
+AM_ch4_plot <- ggplot(data=biogas_california_sf) +
+  geom_sf(aes(fill=AMCH4t)) + 
+  scale_fill_continuous(type='viridis')+
+  labs(title='Animal Manure Derived CH4 Potential, CA (MT per year)',
+  )
+print(AM_ch4_plot)
+
+ Combinedplot_CH4 <- plot_grid(Total_ch4_plot, WW_ch4_plot, Landfill_ch4_plot, 
+                               OW_ch4_plot, AM_ch4_plot)      
+  print(Combinedplot_CH4)
+  
+
 
 ```
 
