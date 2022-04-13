@@ -26,8 +26,11 @@ colnames(biogas_sf)
 biogas_california_sf<- st_read('../Data/biomethane/Biomethane.shp') %>%
   filter(STATE_NAME == "California")
 
+<<<<<<< HEAD
 class(biogas_california_sf$NAME)
 
+=======
+>>>>>>> b832c420e6f54d51df1f719b4ecaeda6d0edc077
 str(biogas_california_sf)
 summary(biogas_california_sf)
 st_crs(biogas_california_sf) # WGS 84, EPSG 4326
@@ -120,7 +123,7 @@ Regressions
 ```{r}
 
 ggplot(biogas_pop_join,aes(x=Population,y=WWTPCH4t)) + 
-  geom_point() + 
+  geom_line() + 
   geom_smooth(method=lm,se=FALSE)+
   labs(title='Population and CH4 potential from Wastewater Treatment', 
        subtitle= "California",y="CH4 Generation", 

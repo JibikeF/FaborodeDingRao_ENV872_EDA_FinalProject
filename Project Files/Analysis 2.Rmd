@@ -1,7 +1,7 @@
 ---
-title: "InitialAnalysis"
+title: "Analysis V2"
 author: "Yinan"
-date: "4/5/2022"
+date: "4/13/2022"
 output: html_document
 ---
 
@@ -88,7 +88,6 @@ summary(regression_pop_CH4)
 #p-value:4.22e-15
 #Residual standard error: 20420 on 56 degrees of freedom
 #Multiple R-squared: 0.6701
-
 plot(regression_pop_CH4)
 
 mytheme <- theme_classic(base_size = 12) +
@@ -145,6 +144,9 @@ summary(regression_pop_AM)
 #p-value: < 0.989
 #Residual standard error: 14190 on 56 degrees of freedom
 #Multiple R-squared: -0.01785 
+
+print(AM_Plot)  
+  
   
 WWTP_Plot <- 
   ggplot(biogas_pop_join, aes(x = WWTPCH4t, y = Population)) +
@@ -164,7 +166,7 @@ summary(regression_pop_WWTP)
 #p-value: < 2.2e-16
 #Residual standard error: 1128 on 56 degrees of freedom
 #Multiple R-squared:  0.984 
-
+  
 LF_Plot <- 
   ggplot(biogas_pop_join, aes(x = LFGCH4t, y = Population)) +
   geom_point(alpha=2, color = "Blue") +
@@ -186,10 +188,9 @@ summary(regression_pop_LF)
 
   Combinedplot <- plot_grid(
     OW_Plot,AM_Plot,WWTP_Plot,LF_Plot
-  )
+ )
   print(Combinedplot)
   
-
 
 
 ```
