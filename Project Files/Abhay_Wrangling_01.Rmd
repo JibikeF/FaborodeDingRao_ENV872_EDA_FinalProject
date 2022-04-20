@@ -26,11 +26,8 @@ colnames(biogas_sf)
 biogas_california_sf<- st_read('../Data/biomethane/Biomethane.shp') %>%
   filter(STATE_NAME == "California")
 
-<<<<<<< HEAD
 class(biogas_california_sf$NAME)
 
-=======
->>>>>>> b832c420e6f54d51df1f719b4ecaeda6d0edc077
 str(biogas_california_sf)
 summary(biogas_california_sf)
 st_crs(biogas_california_sf) # WGS 84, EPSG 4326
@@ -86,7 +83,6 @@ print(AM_ch4_plot)
   print(Combinedplot_CH4)
   
 
-
 ```
 
 Wrangling the population dataset below:
@@ -131,21 +127,41 @@ ggplot(biogas_pop_join,aes(x=Population,y=WWTPCH4t)) +
 ```
 
 =======
-
-```
-
-Wrangling the population dataset below:
-
 ```{r}
-population_sf <- st_read('../Data/2010_Census_Urban_Areas/2010_Census_Urban_Areas.shp')
-population_tracts_sf <- st_read('../Data/2010_Census_Tracts/2010_Census_Tracts.shp')
+#SVI Analysis
 
-str(population_sf)
-summary(population_sf)
-st_crs(population_sf) # WGS 84, EPSG 4326
-st_bbox(population_sf)
-head(population_sf)
+svi2018_CA_raw <- read.csv('https://svi.cdc.gov/Documents/Data/2018_SVI_Data/CSV/States_Counties/California_COUNTY.csv',
+  colClasses = c('FIPS' = 'factor')) %>% 
+  select(COUNTY, FIPS, LOCATION, E_TOTPOP, E_POV, E_MINRTY)
+
+str(svi2018_CA_raw)
+
+svi_sf_join <- biogas_pop_join %>% 
+  left_join(svi2018_CA_raw, by = c("FIPS" = "FIPS") )
+
+str(svi_sf_join)
+
+#Correlation and regressions between methane and impoverished population
+
+cor.test(svi_sf_join$TotalCH4t,svi_sf_join$E_POV)#0.82
+regression_pov_CH4<- lm(svi_sf_join$TotalCH4t~svi_sf_join$E_POV)
+summary(regression_pov_CH4) #p-value: 8.476e-16
+
+cor.test(svi_sf_join$LFGCH4t,svi_sf_join$E_POV) #0.78
+regression_pov_LFGCH4<- lm(svi_sf_join$LFGCH4t~svi_sf_join$E_POV)
+summary(regression_pov_LFGCH4) #p-value: 5.653e-13
+
+cor.test(svi_sf_join$WWTPCH4t,svi_sf_join$E_POV) #0.97
+regression_pov_WWTPCH4<- lm(svi_sf_join$WWTPCH4t~svi_sf_join$E_POV)
+summary(regression_pov_WWTPCH4) #p-value: < 2.2e-16
+
+cor.test(svi_sf_join$AMCH4t,svi_sf_join$E_POV) #0.05
+regression_pov_AMCH4<- lm(svi_sf_join$AMCH4t~svi_sf_join$E_POV)
+summary(regression_pov_AMCH4) #p-value: 0.6652
+
+cor.test(svi_sf_join$OWCH4t,svi_sf_join$E_POV)#0.98
+regression_pov_OWCH4<- lm(svi_sf_join$OWCH4t~svi_sf_join$E_POV)
+summary(regression_pov_OWCH4) #p-value: < 2.2e-16
 
 ```
 
->>>>>>> b832c420e6f54d51df1f719b4ecaeda6d0edc077
