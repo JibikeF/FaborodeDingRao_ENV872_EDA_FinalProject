@@ -119,7 +119,7 @@ Regressions
 ```{r}
 
 ggplot(biogas_pop_join,aes(x=Population,y=WWTPCH4t)) + 
-  geom_line() + 
+  geom_point() + 
   geom_smooth(method=lm,se=FALSE)+
   labs(title='Population and CH4 potential from Wastewater Treatment', 
        subtitle= "California",y="CH4 Generation", 

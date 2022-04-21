@@ -118,6 +118,7 @@ OW_Plot <-
   ggtitle("Organic Waste Methane Generation Potential")+
   mytheme
   print(OW_Plot)  
+<<<<<<< HEAD
 
 cor.test(biogas_pop_join$OWCH4t,biogas_pop_join$Population)
 #cor: 0.96
@@ -126,6 +127,8 @@ summary(regression_pop_OW)
 #p-value: < 2.2e-16
 #Residual standard error: 515.6 on 56 degrees of freedom
 #Multiple R-squared: 0.99
+=======
+>>>>>>> c5b32849539f70e02c44a3209b51054e70fee40c
   
 AM_Plot <- 
   ggplot(biogas_pop_join, aes(x = AMCH4t, y = Population)) +
@@ -136,6 +139,7 @@ AM_Plot <-
   labs(y= "Population Density", x = "Animal Manure")+
   ggtitle("Animal Manure Methane Generation Potential")+
   mytheme
+<<<<<<< HEAD
   print(AM_Plot)
   
 cor.test(biogas_pop_join$AMCH4t,biogas_pop_join$Population)
@@ -145,6 +149,10 @@ summary(regression_pop_AM)
 #p-value: < 0.989
 #Residual standard error: 14190 on 56 degrees of freedom
 #Multiple R-squared: -0.01785 
+=======
+  print(AM_Plot)  
+  
+>>>>>>> c5b32849539f70e02c44a3209b51054e70fee40c
   
 WWTP_Plot <- 
   ggplot(biogas_pop_join, aes(x = WWTPCH4t, y = Population)) +
@@ -155,6 +163,7 @@ WWTP_Plot <-
   labs(y= "Population Density", x = "Wastewater")+
   ggtitle("Waste Water Methane Generation Potential")+
   mytheme
+<<<<<<< HEAD
   print(WWTP_Plot)  
   
 cor.test(biogas_pop_join$WWTPCH4t,biogas_pop_join$Population)
@@ -165,6 +174,10 @@ summary(regression_pop_WWTP)
 #Residual standard error: 1128 on 56 degrees of freedom
 #Multiple R-squared:  0.984 
 
+=======
+  print(WWTP_Plot)   
+  
+>>>>>>> c5b32849539f70e02c44a3209b51054e70fee40c
 LF_Plot <- 
   ggplot(biogas_pop_join, aes(x = LFGCH4t, y = Population)) +
   geom_point(alpha=2, color = "Blue") +
@@ -174,6 +187,7 @@ LF_Plot <-
   labs(y= "Population Density", x = "Landfill")+
   ggtitle("Landfill Methane Generation Potential")+
   mytheme
+<<<<<<< HEAD
   print(LF_Plot) 
   
 cor.test(biogas_pop_join$LFGCH4t,biogas_pop_join$Population)
@@ -191,5 +205,18 @@ summary(regression_pop_LF)
   
 
 
+=======
+  print(LF_Plot)  
+
+  Combinedplot <- plot_grid(
+    OW_Plot,AM_Plot,WWTP_Plot,LF_Plot
+  )
+  print(Combinedplot)
+  
+Cal_population <- cbind(biogas_pop_join$Population,biogas_pop_join$Population, biogas_pop_join$Population, biogas_pop_join$Population)
+Biogas_source <- cbind(biogas_pop_join$OWCH4t,biogas_pop_join$AMCH4t, biogas_pop_join$WWTPCH4t, biogas_pop_join$LFGCH4t)
+matplot(Cal_population,Biogas_source, type='p')
+
+>>>>>>> c5b32849539f70e02c44a3209b51054e70fee40c
 
 ```
