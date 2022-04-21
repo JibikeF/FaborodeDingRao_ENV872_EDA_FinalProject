@@ -221,6 +221,7 @@ summary(regression_pov_AMCH4) #p-value: 0.6652
 
 ```
 
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 Plot_poor_CH4 <- 
   ggplot(svi_sf_join, aes(x = TotalCH4t, y = E_POV,)) +
