@@ -1,0 +1,47 @@
+---
+title: "Exploring Factors Contributing to Biogas Generation Potential in California and North Carolina"
+author: "Jibike Faborode, Yinan Ding, Abhay Rao"
+date: "4/12/2022"
+output: powerpoint_presentation: reference_doc: my-styles.pptx
+---
+
+```{r setup, include=FALSE, R.options=list(width = 70)}
+library(xaringan)
+#names(xaringan:::list_css("lucy"))
+knitr::opts_chunk$set(echo = FALSE)
+#library(devtools)
+usethis::use_rmarkdown_template("lucy")
+```
+
+
+## Presentation Outline
+
+* Research Question
+* Data Set
+* Data Wrangling
+* Data Analysis
+* Results of Analysis
+* Conclusion
+
+## Research Question
+1. Does biogas generation potential from wastewater plants have correlation with the population of surrounding areas?
+
+2. Are there other factors to consider as well?
+
+```{r cars, echo = TRUE}
+:::::::::::::: {.columns}
+::: {.column}
+Does biogas generation potential from wastewater plants have correlation with the population of surrounding areas?
+:::
+::: {.column}
+Are there other factors to consider as well?
+:::
+::::::::::::::
+```
+
+## Slide with Plot
+
+```{r pressure}
+plot(pressure)
+```
+
