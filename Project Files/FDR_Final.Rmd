@@ -206,9 +206,7 @@ Visually, the most populated area of California, given by the county shaded
 yellow, Los Angeles, has the highest methane (CH4) generation potential. The density of 
 impoverished population appears to be similarly distributed.
 
-
 ```{r echo=FALSE, warning=FALSE}
-
 Total_pop_plot <-ggplot(data=svi_sf_join) +
   geom_sf(aes(fill= E_TOTPOP)) + 
   scale_fill_continuous(type='viridis')+
@@ -236,12 +234,7 @@ Total_pov_plot <-ggplot(data=svi_sf_join) +
 The total Methane generation potential is greatest at the most densely populated
 areas. This trend appears to continue with wastewater derived methane.
 
-
-Total CH4 generation potential is greatest at the most densely populated areas.
-This trend appears to continue with wastewater derived methane.
-
 ```{r echo=FALSE, warning=FALSE}
-
 Total_ch4_plot <-ggplot(data=svi_sf_join) +
   geom_sf(aes(fill= TotalCH4t)) + 
   scale_fill_continuous(type='viridis')+
@@ -269,11 +262,7 @@ Combinedplot_totalww <- plot_grid(Total_ch4_plot,WW_ch4_plot)
 ```
 
 Industrial Organic waste, like wastewater, is highly correlated with population.With landfill-based methane, some counties in central CA, which do not appear to have a high population, have comparatively high methane generation potential. There may be some non-population related factors in play.
-
-```{r,echo=FALSE,message = FALSE}
-
 ```{r echo=FALSE, warning=FALSE}
-
 Landfill_ch4_plot <- ggplot(data=svi_sf_join) +
   geom_sf(aes(fill=LFGCH4t)) + 
   scale_fill_continuous(type='viridis')+
@@ -305,9 +294,7 @@ The trend with animal-manure derived CH4 however substantially differs from the
 previous cases. Population does not appear to be a decisive factor.
 
 
-
 ```{r echo=FALSE, warning=FALSE}
-
 AM_ch4_plot <- ggplot(data=svi_sf_join) +
   geom_sf(aes(fill=AMCH4t)) + 
   scale_fill_continuous(type='viridis')+
@@ -426,14 +413,10 @@ summary(regression_pop_LF)
 #Multiple R-squared:  0.6223 
 Combinedplot <- plot_grid(OW_Plot,AM_Plot,WWTP_Plot,LF_Plot)
   print(Combinedplot)
-  
-```
 
 ## Question 2: Is there a relationship between methane generation potential and impoverished populations?
 
-
 ```{r message=FALSE, echo=FALSE, warning=FALSE}
-
 
 #Correlation and regressions between methane and impoverished population
 
@@ -521,11 +504,9 @@ print(Plot_poor_AM)
 
 \newpage
 
-
-# Summary and Conclusions
+# Conclusion
 The null hypothesis to our research question is that there is no correlation between population density and biogas generation potential. We ran a correlation test to test the strength and direction between California population and the total biogas generation potential.  We also ran a simple linear regression model to investigate whether these two variables involves a linear relationship. By looking at the residual plots, we can tell that the regression model fits our data but has outliers that disrupt the model accuracy. The p-value is 4.22e-15, indicating that the result is statistically significant. The multiple R-squared is 0.67, meaning that the independent variables can expalin 67% of the variations in biogas generation potential. Therefore, we are confident in rejecting the null hypothesis. Now we can say the total biogas generation potential in california does have a linear relationship with the population density. However, we still want to know how and what different sources is correlated with population. Subsequently, we ran the same test for each individual biogas sources. Based on the results from running correlation test and linear regression model for each of the biogas generation sources: Organic waste, Animal manure, Wastewater, and Landfill. We found out the the organic waste and wastewater contributes to the highest correlation to the population density, while Animal manure and landfill are less correlated. 
 
-# Conclusion
 Overall, the analysis conducted show that biogas generation potential across 
 counties in California is positively correlated with the population density. 
 This implies that the higher the population in a specific area, the higher the 
@@ -551,7 +532,6 @@ generation potentials to tap into the resources for those with higher
 generation.This also includes scoping the potential to utilize biogas energy 
 for base load power or peaking, using various analyses including a cost-benefit 
 analysis.
-
 
 
 

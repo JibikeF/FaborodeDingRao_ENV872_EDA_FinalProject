@@ -16,10 +16,9 @@ library(sf)
 library(mapview)
 library(RColorBrewer)
 library(cowplot)
-```
-Reading the shapefile on biogas. Examining its characteristics.
 
-```{r}
+#Reading the shapefile on biogas. Examining its characteristics.
+
 biogas_sf<- st_read('../Data/biomethane/Biomethane.shp')
 colnames(biogas_sf)
 
@@ -28,11 +27,11 @@ biogas_california_sf<- st_read('../Data/biomethane/Biomethane.shp') %>%
 
 class(biogas_california_sf$NAME)
 
-str(biogas_california_sf)
-summary(biogas_california_sf)
-st_crs(biogas_california_sf) # WGS 84, EPSG 4326
-st_bbox(biogas_california_sf)
-head(biogas_california_sf)
+# str(biogas_california_sf)
+# summary(biogas_california_sf)
+# st_crs(biogas_california_sf) # WGS 84, EPSG 4326
+# st_bbox(biogas_california_sf)
+# head(biogas_california_sf)
 
 ```
 
@@ -57,21 +56,24 @@ population_data$Population <- as.numeric(gsub(",","",population_data$Population)
 class(population_data$Population)
 head(population_data)
 
-
-class(population_data$NAME)
-
-biogas_pop_join <- left_join(biogas_california_sf, population_data, by = c('NAME' = 'NAME'))
+  
+# TEST 1, combined data with merge 
+biogas_pop_join <- merge(biogas_california_sf,population_data,by = "NAME", all = TRUE)
+#added population data but original data missing
+# TEST 2, combined data with left_join 
+biogas_pop_join <- left_join(biogas_california_sf,population_data,by = 'NAME',all.y=TRUE)
+#added population data but NA
 str(biogas_pop_join)
 head(biogas_pop_join)
-biogas_pop_join$Population <- as.numeric(c("1661584",
-"1159","39023","223344","45828","21491","1147788","27692",
-"190345","990204","28060", "136101","180580","17930","892458","151090",
-"64276","30600","10040682", "155925","259441","17319", "87110","273661","8853",
-"14395","432977","138572","99417","3170345","391799","18844","2437864","1537948",
-"61547","2162532","3323970","874784","751615","282517","765623","444895","1924379",
-"273170","179267","2898","43516","444538","496801","546235","96315","64176",
-"1254","463955","54147","845599","218774","77524"
-))
+#biogas_pop_join$Population <- as.numeric(c("1661584",
+#"1159","39023","223344","45828","21491","1147788","27692",
+#"190345","990204","28060", #"136101","180580","17930","892458","151090",
+#"64276","30600","10040682", "155925","259441","17319", #"87110","273661","8853",
+# #"14395","432977","138572","99417","3170345","391799","18844","2437864","1537948",
+# "61547","2162532","3323970","874784","751615","282517","765623","444895","1924379",
+# "273170","179267","2898","43516","444538","496801","546235","96315","64176",
+# "1254","463955","54147","845599","218774","77524"
+# ))
 
 mapView(biogas_pop_join, zcol = "Population")
 
@@ -114,7 +116,7 @@ OW_Plot <-
   xlim(0, 110000) +
   ylim(0, 5.0e+06)+
   labs(y= "Population Density", x = "Organic Waste")+
-  ggtitle("Organic Waste Methane Generation Potential")+
+  ggtitle("Organic Waste Potential")+
   mytheme
   print(OW_Plot)  
 
@@ -133,7 +135,7 @@ AM_Plot <-
   xlim(0, 110000) +
   ylim(0, 5.0e+06)+
   labs(y= "Population Density", x = "Animal Manure")+
-  ggtitle("Animal Manure Methane Generation Potential")+
+  ggtitle("Animal Manure Potential")+
   mytheme
   print(AM_Plot)
   
@@ -155,7 +157,7 @@ WWTP_Plot <-
   xlim(0, 110000) +
   ylim(0, 5.0e+06)+
   labs(y= "Population Density", x = "Wastewater")+
-  ggtitle("Waste Water Methane Generation Potential")+
+  ggtitle("Waste Water Potential")+
   mytheme
   print(WWTP_Plot)  
   
@@ -174,7 +176,7 @@ LF_Plot <-
   xlim(0, 110000) +
   ylim(0, 5.0e+06)+
   labs(y= "Population Density", x = "Landfill")+
-  ggtitle("Landfill Methane Generation Potential")+
+  ggtitle("Landfill Potential")+
   mytheme
   print(LF_Plot) 
   
