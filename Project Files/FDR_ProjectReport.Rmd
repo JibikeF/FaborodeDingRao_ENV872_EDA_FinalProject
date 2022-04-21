@@ -21,6 +21,8 @@ mainfont: Times New Roman
 \listoftables 
 \newpage
 \listoffigures 
+
+
 \newpage
 ```
 ```{r setup, include=FALSE}
@@ -47,53 +49,127 @@ biogas_sf<- st_read('../Data/biomethane/Biomethane.shp')
 svi2018_raw <- read.csv('https://svi.cdc.gov/Documents/Data/2018_SVI_Data/CSV/States_Counties/California_COUNTY.csv')
 
 ```
+# Table of figures
 
-# Rationale and Research Questions
+Figure 1: Population density across counties im California
 
-Methane's global warming potential is estimated to be over 25 times as potent as 
-that of Carbon Dioxide. The [UNECE](https://unece.org/challenge#:~:text=Methane%20is%20a%20powerful%20greenhouses,grows%20to%2084%2D86%20times.) estimates that over a 20 year period, this ratio increases 
-to 84-86 times. Methane is generated from various sources, including (but not
-limited to) wastewater treatment, animal manure, landfills, industrial organic
-waste.
+Figure 2: Impoverished population density across counties in California
 
-The NREL estimates that California has the highest biogas generation potential
-in the US. According to the [American Biogas Council](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/viewer.html?pdfurl=https%3A%2F%2Famericanbiogascouncil.org%2Fwp-content%2Fuploads%2F2019%2F05%2FABCBiogasStateProfile_CA.pdf&clen=226298&chunk=true), California can power nearly 200,000 homes if this biogas 
-is utilized appropriately.
+Figure 3: Total Methane potential across counties in California
 
-We therefore set to find out more about biogas generation potential in California:
+Figure 4: Waste water Methane Potential across counties in California
 
-*Firstly, was biogas generation potential correlated with densely populated areas?*
-That is, could biogas be channeled to nearby use cases frequently? 
+Figure 5: Landfill methane potential across counties in California
 
-*Secondly, are there additional factors to consider?*
+Figure 6: Organic Waste methane potential across counties in California
+
+Figure 7: Animal manure methane potential across counties in California
+
+Figure 8: 
+
+Figure 9:
+
+Figure 10:
+
+Figure 11:
+
+Figure 12:
+
+Figure 13:
+
+Figure 14:
+
+\newpage
+
+# Background
+
+## Rationale of the study
+The transition to cleaner and renewable sources of energy requires more work to 
+scale already existing gains, for example in the area of biogas utilization, 
+while also seeking out new opportunities. Biogas is a form of renewable energy 
+produced by anaerobic decomposition or thermochemical conversion of biomass such
+as agricultural waste, manure, municipal waste sewage, green waste and food 
+waste. Biogas is composed mostly of methane, alongside carbon dioxide, water 
+vapor and other gases. Similar to natural gas, biogas can be burned directly as 
+a fuel or treated to remove the CO2 and other gases before for being used in the
+form of biomethane.
+
+Utilizing biogas as an energy source helps to transform harmful gases from 
+decomposing waste into positive use. Methane is a powerful greenhouse gas that 
+traps heat in the atmosphere, with a global warming potential estimated to be 
+over 25 times as potent as that of Carbon Dioxide.Transforming waste into biogas
+therefore reduces greenhouse gas emissions and the risk of pollution to 
+waterways. The [UNECE](https://unece.org/challenge#:~:text=Methane%20is%20a%20powerful%20greenhouses,grows%20to%2084%2D86%20times.) estimates that over a 20 year period, this ratio 
+increases to 84-86 times. However, stored biogas limits the amount of methane 
+released into the atmosphere and reduces dependence on fossil fuels. When stored
+, biogas serves as a renewable and reliable baseload power source and can even 
+be used to rapidly meet peak power demands. When biogas is used for energy 
+generation in place of fossil fuels, it enables even more  emission reductions, 
+sometimes resulting in carbon negative systems. According to the 
+[Environmental and Energy Study Institute, EESI](https://www.eesi.org/papers/view/fact-sheet-biogasconverting-waste-to-energy)
+,the reduction of methane emissions derived from tapping all the potential 
+biogas in the United States would be equal to the annual emissions of 800,000 to
+11 million passenger vehicles.
+
+Unfortunately, despite the various benefits offered by biogas energy, the United
+States currently only has 2,200 operating biogas systems. The EESI estimates 
+this current capacity to be less than 20% of the total potential. It is 
+on this basis that this study attempts to examine the factors contributing to 
+biogas generation potential, particularly in California. California was selected
+because of its status as a leading state in biogas generation potential based on
+estimates by the National Renewable Energy Laboratory (NREL). According to the
+[American Biogas Council](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/viewer.html?pdfurl=https%3A%2F%2Famericanbiogascouncil.org%2Fwp-content%2Fuploads%2F2019%2F05%2FABCBiogasStateProfile_CA.pdf&clen=226298&chunk=true), California can power nearly 200,000 homes if this biogas 
+is utilized appropriately. The results of our analysis for California can 
+provide the basis for further analysis across several other US states.
+
+
+
+## Research Questions
+The analysis conducted was done based on two research questions: 
+
+1. Is biogas generation potential correlated with population density across 
+California counties?
+
+2. What additional factors must be considered in determining biogas generation 
+potential?
 
 
 
 \newpage
 
 # Dataset Information
-We drew upon two datasets: 
+the datasets used include the following:
 
-1. The National Renewable Energy Laboratory's dataset on methane generation potential
-in the United States of America. This considered all US States' CH4 generation
-potential in metric tons across the following sources: landfills, industrial organic
-waste, animal manure, and wastewater, aggregated into Total CH4 potential. This 
-data is sourced from 2009-2012.
+1. Methane Generation Potential
+The NREL's dataset on methane generation potential covers data for the entire 
+United States of America. It particularly providing information 
+for Methane  generation potential across all states in metric tons from sources 
+which include landfills, industrial organic waste, animal manure, and wastewater
+. All of these individual sources were aggregated to estimate total methane 
+generation potential by state. The dataset contained estimates for 2009 to 2012,
+being the latest available data we could find online.
 
-2. The CDC and ATSDR's social vulnerability index, from which we obtained
-county-wide population data, and details on impoverished populations. This 
-data is sourced from 2017-2018.
+2. Population data 
+Population data was pulled from the latest available the Social Vulnerability 
+Index data compiled by the Center for Disease Control (CDC) and Agency for Toxic
+Substance and Diseace Reegistry (ATSDR). This dataset also includes details on 
+impoverished populations and spans from 2017-2018. Since the SDI offers data 
+that helps to effectly plan towards meeting the needs of improverished 
+populations, this dataset also helps to dds another dimension to our analysis as
+it enables the exploration of impacts on socially vulnerable people.
+
 
 \newpage
 
 # Exploratory Analysis
 
-We wrangled and joined both datasets to have a unified, county-wise dataframe
-that included data on methane generation potential, population and poverty. We 
-started our analysis with a visual assessment of spatial data, to determine 
-if any trends immediately emerged.
+The two datasets were wrangled and joined both datasets to have a unified 
+dataframe that captured data on methane generation potential, population and 
+poverty levels by county. An initial exploration of the data was done to provide
+a visual assessment of spatial data and determine the emergence of any any 
+trends.
 
-```{r include=FALSE}
+```{r include=FALSE, echo=FALSE, warning=FALSE}
 #Wrangling datasets
 biogas_california_sf<- st_read('../Data/biomethane/Biomethane.shp') %>%
   filter(STATE_NAME == "California") #NREL Data for California
@@ -110,62 +186,104 @@ svi_sf_join <- biogas_california_sf %>%
 str(svi_sf_join) # Columns of interest are OWCH4T, AMCH4T, WWTPCH4t, LFGCH4T, 
 # E_TOTPOP, E_POV
 
+# Change column names to make them explanatory
+#colnames(svi_sf_join)[which(names(svi_sf_join) == "E_TOTPOP")] <- "Total Population"
+#colnames(svi_sf_join)[which(names(svi_sf_join) == "E_POV")] <- "Vulnerable Population"
+#colnames(svi_sf_join)[which(names(svi_sf_join) == "TotalCH4t")] <- "Total Methane Potential"
+#colnames(svi_sf_join)[which(names(svi_sf_join) == "WWTPCH4t")] <- "Wastewater Methane Potential"
+#colnames(svi_sf_join)[which(names(svi_sf_join) == "LFGCH4t")] <- "Landfill Methane Potential"
+#colnames(svi_sf_join)[which(names(svi_sf_join) == "OWCH4t")] <- "Organic Waste Methane Potential"
+#colnames(svi_sf_join)[which(names(svi_sf_join) == "AMCH4t")] <- "Animal Waste Methane Potential"
+
+
+```
+
+```{r echo=FALSE, fig.height=3, fig.width=8, message=FALSE, warning=FALSE}
+head(svi_sf_join) #Show the head of the new dataframe which includes population
 ```
 
 Visually, the most populated area of California, given by the county shaded 
-yellow, Los Angeles, has the highest CH4 generation potential. The density of impoverished
-population appears to be similarly distributed.
+yellow, Los Angeles, has the highest methane (CH4) generation potential. The density of 
+impoverished population appears to be similarly distributed.
 
-```{r echo=FALSE}
+```{r echo=FALSE, warning=FALSE}
 Total_pop_plot <-ggplot(data=svi_sf_join) +
-  geom_sf(aes(fill=E_TOTPOP)) + 
+  geom_sf(aes(fill= E_TOTPOP)) + 
   scale_fill_continuous(type='viridis')+
-  labs(title='Population Density, CA',
-  )
+  labs(title='Figure 1: Population Density, CA', fill = "Total Population") + 
+  theme(legend.title = element_text(color = "black", size = 8),
+  legend.text = element_text(color = "black", size = 4), plot.title = 
+    element_text(color = "black", size = 10, 
+                            face = "bold", hjust = 0.5))
+  
 
 Total_pov_plot <-ggplot(data=svi_sf_join) +
   geom_sf(aes(fill=E_POV)) + 
   scale_fill_continuous(type='viridis')+
-  labs(title='Impoverished Population Density, CA',
-  )
+  labs(title='Figure 2: Impoverished Population Density, CA', 
+       fill = "Impoverished Population") + 
+  theme(legend.title = element_text(color = "black", size = 8),
+  legend.text = element_text(color = "black", size = 4), plot.title = 
+    element_text(color = "black", size = 10, 
+                            face = "bold", hjust = 0.5))
 
  Combinedplot_pop <- plot_grid(Total_pop_plot,Total_pov_plot)      
   print(Combinedplot_pop)
+  
 ```
+The total Methane generation potential is greatest at the most densely populated
+areas. This trend appears to continue with wastewater derived methane.
 
-
-Total CH4 generation potential is greatest at the most densely populated areas.
-This trend appears to continue with wastewater derived methane.
-
-```{r echo=FALSE}
+```{r echo=FALSE, warning=FALSE}
 Total_ch4_plot <-ggplot(data=svi_sf_join) +
-  geom_sf(aes(fill=TotalCH4t)) + 
+  geom_sf(aes(fill= TotalCH4t)) + 
   scale_fill_continuous(type='viridis')+
-  labs(title='Total CH4 Potential, CA (MT/year)'
-  )
+  labs(title='Figure 3: Total Methane Potential, CA (MT/year)', 
+       fill = "Total Methane Potential") +
+           theme(legend.title = element_text(color = "black", size = 8),
+  legend.text = element_text(color = "black", size = 4), plot.title = 
+    element_text(color = "black", size = 10, 
+                            face = "bold", hjust = 0.5))
+  
 
 WW_ch4_plot <- ggplot(data=svi_sf_join) +
   geom_sf(aes(fill=WWTPCH4t)) + 
   scale_fill_continuous(type='viridis')+
-  labs(title='Wastewater CH4 Potential, CA (MT/year)',
-  )
+  labs(title='Figure 4: Wastewater Methane Potential, CA (MT/year)', 
+       fill = "Wastewater Methane Potential") +
+           theme(legend.title = element_text(color = "black", size = 8),
+  legend.text = element_text(color = "black", size = 4), plot.title = 
+    element_text(color = "black", size = 10, 
+                            face = "bold", hjust = 0.5))
+  
 
 Combinedplot_totalww <- plot_grid(Total_ch4_plot,WW_ch4_plot)      
   print(Combinedplot_totalww)
 ```
 
 Industrial Organic waste, like wastewater, is highly correlated with population.With landfill-based methane, some counties in central CA, which do not appear to have a high population, have comparatively high methane generation potential. There may be some non-population related factors in play.
-```{r echo=FALSE}
+```{r echo=FALSE, warning=FALSE}
 Landfill_ch4_plot <- ggplot(data=svi_sf_join) +
   geom_sf(aes(fill=LFGCH4t)) + 
   scale_fill_continuous(type='viridis')+
-  labs(title='Landfill CH4 Potential, CA (MT/year)')
+  labs(title='Figure 5: Landfill Methane Potential, CA (MT/year)',  
+       fill = "Landfill Methane Potential") +
+           theme(legend.title = element_text(color = "black", size = 8),
+  legend.text = element_text(color = "black", size = 4), plot.title = 
+    element_text(color = "black", size = 10, 
+                            face = "bold", hjust = 0.5))
+  
 
 OW_ch4_plot <- ggplot(data=svi_sf_join) +
   geom_sf(aes(fill=OWCH4t)) + 
   scale_fill_continuous(type='viridis')+
-  labs(title='Organic Waste CH4 Potential, CA (MT/year)',
-  )
+  labs(title='Figure 6: Organic Waste Methane Potential, CA (MT/year)',  
+       fill = "Organic Waste Methane Potential") +
+           theme(legend.title = element_text(color = "black", size = 8),
+  legend.text = element_text(color = "black", size = 4), plot.title = 
+    element_text(color = "black", size = 10, 
+                            face = "bold", hjust = 0.5))
+  
 
 Combinedplot_lfow <- plot_grid(Landfill_ch4_plot,OW_ch4_plot)      
   print(Combinedplot_lfow)
@@ -176,12 +294,17 @@ The trend with animal-manure derived CH4 however substantially differs from the
 previous cases. Population does not appear to be a decisive factor.
 
 
-```{r echo=FALSE}
+```{r echo=FALSE, warning=FALSE}
 AM_ch4_plot <- ggplot(data=svi_sf_join) +
   geom_sf(aes(fill=AMCH4t)) + 
   scale_fill_continuous(type='viridis')+
-  labs(title='Animal Manure Derived CH4 Potential, CA (MT per year)',
-  )
+  labs(title='Figure 7: Animal Manure Derived Methane Potential, CA (MT per year)',
+  fill = "Organic Waste Methane Potential") +
+           theme(legend.title = element_text(color = "black", size = 8),
+  legend.text = element_text(color = "black", size = 4), plot.title = 
+    element_text(color = "black", size = 10, 
+                            face = "bold", hjust = 0.5))
+  
 print(AM_ch4_plot)
 
 ```
@@ -194,7 +317,7 @@ print(AM_ch4_plot)
 
 ## Question 2: Is there a relationship between methane generation potential and impoverished populations?
 
-```{r message=FALSE, include=FALSE}
+```{r message=FALSE, echo=FALSE, warning=FALSE}
 
 #Correlation and regressions between methane and impoverished population
 
@@ -282,7 +405,34 @@ print(Plot_poor_AM)
 
 \newpage
 
-# Summary and Conclusions
+# Conclusion
+Overall, the analysis conducted show that biogas generation potential across 
+counties in California is positively correlated with the population density. 
+This implies that the higher the population in a specific area, the higher the 
+biogas generation potential. However, the analysis also recognises that 
+generation potential and correlation with population density varies according to
+the biomass source across counties. As such, results show that animal based 
+methane appeared to be less correlated with population. Assumptions that best 
+explain this result are that more animals will contribute to animal-based 
+biomass and that human habitation is often less where animal population is 
+dense. Results of our analysis also show that the potential of landfill-based 
+biogas was not limited to densely or sparsely populated areas, while organic 
+waste and waste water represented the most significant sources of biogas 
+generation potential across California. 
+
+Future analysis can focus on improving the model presented in this report by 
+eliminating some outliers and using more recent datasets. This study made use of
+older data sets because those were the ones most recently made available on open
+and credible data portals. Other areas of future analysis include exploring the 
+level and process of utilization of California's biogas generation potential, 
+as well as how utilization can be scaled. For example, the potential of 
+leveraging the biogas generation potential by enabling counties with lower 
+generation potentials to tap into the resources for those with higher 
+generation.This also includes scoping the potential to utilize biogas energy 
+for base load power or peaking, using various analyses including a cost-benefit 
+analysis.
+
+
 
 \newpage
 
