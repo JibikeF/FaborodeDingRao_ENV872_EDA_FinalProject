@@ -1,0 +1,79 @@
+---
+title: "Exploring the Determinants of Biogas Generation Potential in California"
+subtitle: https://github.com/AbhayLearnsToCode/FaborodeDingRao_ENV872_EDA_FinalProject.git
+author: "Abhay V Rao"
+date: "4/20/2022"
+output: html_document
+---
+
+\newpage
+\tableofcontents 
+\newpage
+\listoftables 
+\newpage
+\listoffigures 
+\newpage
+
+```{r setup, include=FALSE}
+# Set your working directory
+getwd()
+
+# Load your packages
+library(tidyverse)
+library(lubridate)
+library(sf)
+library(mapview)
+library(RColorBrewer)
+library(cowplot)
+
+# Set your ggplot theme
+mytheme <- theme_gray(base_size = 10) +
+  theme(axis.text = element_text(color = "darkgrey"), 
+        legend.position = "bottom")
+
+theme_set(mytheme)
+
+# Load your datasets
+biogas_sf<- st_read('./Data/biomethane/Biomethane.shp')
+svi2018_raw <- read.csv('https://svi.cdc.gov/Documents/Data/2018_SVI_Data/CSV/States_Counties/California_COUNTY.csv')
+
+```
+
+# Rationale and Research Questions
+
+
+
+\newpage
+
+# Dataset Information
+
+
+
+\newpage
+
+# Exploratory Analysis 
+
+
+
+\newpage
+
+# Analysis
+
+
+
+## Question 1: <insert specific question here and add additional subsections for additional questions below, if needed>
+
+## Question 2: 
+
+
+
+
+\newpage
+
+# Summary and Conclusions
+
+
+\newpage
+
+# References
+<add references here if relevant, otherwise delete this section> 

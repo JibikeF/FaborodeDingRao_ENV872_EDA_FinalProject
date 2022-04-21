@@ -1,0 +1,291 @@
+---
+title: "Exploring the Determinants of Biogas Generation Potential in California"
+author: "Jibikeoluwa Faborode, Yinan Ding, Abhay Rao"
+output:
+  pdf_document:
+    keep_tex: yes
+    fig_caption: yes
+    number_sections: yes
+  html_document:
+    df_print: paged
+subtitle: Web address for GitHub repository
+geometry: margin=2.54cm
+fontsize: 12pt
+mainfont: Times New Roman
+---
+
+```{=tex}
+\newpage
+\tableofcontents 
+\newpage
+\listoftables 
+\newpage
+\listoffigures 
+\newpage
+```
+```{r setup, include=FALSE}
+# Set your working directory
+getwd()
+
+# Load your packages
+library(tidyverse)
+library(lubridate)
+library(sf)
+library(mapview)
+library(RColorBrewer)
+library(cowplot)
+
+# Set your ggplot theme
+mytheme <- theme_gray(base_size = 10) +
+  theme(axis.text = element_text(color = "darkgrey"), 
+        legend.position = "bottom")
+
+theme_set(mytheme)
+
+# Load your datasets
+biogas_sf<- st_read('../Data/biomethane/Biomethane.shp')
+svi2018_raw <- read.csv('https://svi.cdc.gov/Documents/Data/2018_SVI_Data/CSV/States_Counties/California_COUNTY.csv')
+
+```
+
+# Rationale and Research Questions
+
+Methane's global warming potential is estimated to be over 25 times as potent as 
+that of Carbon Dioxide. The [UNECE](https://unece.org/challenge#:~:text=Methane%20is%20a%20powerful%20greenhouses,grows%20to%2084%2D86%20times.) estimates that over a 20 year period, this ratio increases 
+to 84-86 times. Methane is generated from various sources, including (but not
+limited to) wastewater treatment, animal manure, landfills, industrial organic
+waste.
+
+The NREL estimates that California has the highest biogas generation potential
+in the US. According to the [American Biogas Council](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/viewer.html?pdfurl=https%3A%2F%2Famericanbiogascouncil.org%2Fwp-content%2Fuploads%2F2019%2F05%2FABCBiogasStateProfile_CA.pdf&clen=226298&chunk=true), California can power nearly 200,000 homes if this biogas 
+is utilized appropriately.
+
+We therefore set to find out more about biogas generation potential in California:
+
+*Firstly, was biogas generation potential correlated with densely populated areas?*
+That is, could biogas be channeled to nearby use cases frequently? 
+
+*Secondly, are there additional factors to consider?*
+
+
+
+\newpage
+
+# Dataset Information
+We drew upon two datasets: 
+
+1. The National Renewable Energy Laboratory's dataset on methane generation potential
+in the United States of America. This considered all US States' CH4 generation
+potential in metric tons across the following sources: landfills, industrial organic
+waste, animal manure, and wastewater, aggregated into Total CH4 potential. This 
+data is sourced from 2009-2012.
+
+2. The CDC and ATSDR's social vulnerability index, from which we obtained
+county-wide population data, and details on impoverished populations. This 
+data is sourced from 2017-2018.
+
+\newpage
+
+# Exploratory Analysis
+
+We wrangled and joined both datasets to have a unified, county-wise dataframe
+that included data on methane generation potential, population and poverty. We 
+started our analysis with a visual assessment of spatial data, to determine 
+if any trends immediately emerged.
+
+```{r include=FALSE}
+#Wrangling datasets
+biogas_california_sf<- st_read('../Data/biomethane/Biomethane.shp') %>%
+  filter(STATE_NAME == "California") #NREL Data for California
+ 
+svi2018_CA_raw <- read.csv('https://svi.cdc.gov/Documents/Data/2018_SVI_Data/CSV/States_Counties/California_COUNTY.csv',
+  colClasses = c('FIPS' = 'factor')) %>% 
+  select(COUNTY, FIPS, LOCATION, E_TOTPOP, E_POV, E_MINRTY)
+# Population and SVI data for California
+
+svi_sf_join <- biogas_california_sf %>% 
+  left_join(svi2018_CA_raw, by = c("FIPS" = "FIPS") )
+# Joined data.
+
+str(svi_sf_join) # Columns of interest are OWCH4T, AMCH4T, WWTPCH4t, LFGCH4T, 
+# E_TOTPOP, E_POV
+
+```
+
+Visually, the most populated area of California, given by the county shaded 
+yellow, Los Angeles, has the highest CH4 generation potential. The density of impoverished
+population appears to be similarly distributed.
+
+```{r echo=FALSE}
+Total_pop_plot <-ggplot(data=svi_sf_join) +
+  geom_sf(aes(fill=E_TOTPOP)) + 
+  scale_fill_continuous(type='viridis')+
+  labs(title='Population Density, CA',
+  )
+
+Total_pov_plot <-ggplot(data=svi_sf_join) +
+  geom_sf(aes(fill=E_POV)) + 
+  scale_fill_continuous(type='viridis')+
+  labs(title='Impoverished Population Density, CA',
+  )
+
+ Combinedplot_pop <- plot_grid(Total_pop_plot,Total_pov_plot)      
+  print(Combinedplot_pop)
+```
+
+
+Total CH4 generation potential is greatest at the most densely populated areas.
+This trend appears to continue with wastewater derived methane.
+
+```{r echo=FALSE}
+Total_ch4_plot <-ggplot(data=svi_sf_join) +
+  geom_sf(aes(fill=TotalCH4t)) + 
+  scale_fill_continuous(type='viridis')+
+  labs(title='Total CH4 Potential, CA (MT/year)'
+  )
+
+WW_ch4_plot <- ggplot(data=svi_sf_join) +
+  geom_sf(aes(fill=WWTPCH4t)) + 
+  scale_fill_continuous(type='viridis')+
+  labs(title='Wastewater CH4 Potential, CA (MT/year)',
+  )
+
+Combinedplot_totalww <- plot_grid(Total_ch4_plot,WW_ch4_plot)      
+  print(Combinedplot_totalww)
+```
+
+Industrial Organic waste, like wastewater, is highly correlated with population.With landfill-based methane, some counties in central CA, which do not appear to have a high population, have comparatively high methane generation potential. There may be some non-population related factors in play.
+```{r echo=FALSE}
+Landfill_ch4_plot <- ggplot(data=svi_sf_join) +
+  geom_sf(aes(fill=LFGCH4t)) + 
+  scale_fill_continuous(type='viridis')+
+  labs(title='Landfill CH4 Potential, CA (MT/year)')
+
+OW_ch4_plot <- ggplot(data=svi_sf_join) +
+  geom_sf(aes(fill=OWCH4t)) + 
+  scale_fill_continuous(type='viridis')+
+  labs(title='Organic Waste CH4 Potential, CA (MT/year)',
+  )
+
+Combinedplot_lfow <- plot_grid(Landfill_ch4_plot,OW_ch4_plot)      
+  print(Combinedplot_lfow)
+
+```
+
+The trend with animal-manure derived CH4 however substantially differs from the 
+previous cases. Population does not appear to be a decisive factor.
+
+
+```{r echo=FALSE}
+AM_ch4_plot <- ggplot(data=svi_sf_join) +
+  geom_sf(aes(fill=AMCH4t)) + 
+  scale_fill_continuous(type='viridis')+
+  labs(title='Animal Manure Derived CH4 Potential, CA (MT per year)',
+  )
+print(AM_ch4_plot)
+
+```
+
+\newpage
+
+# Analysis
+
+## Question 1: \<insert specific question here and add additional subsections for additional questions below, if needed>
+
+## Question 2: Is there a relationship between methane generation potential and impoverished populations?
+
+```{r message=FALSE, include=FALSE}
+
+#Correlation and regressions between methane and impoverished population
+
+cor.test(svi_sf_join$TotalCH4t,svi_sf_join$E_POV)#0.82
+regression_pov_CH4<- lm(svi_sf_join$TotalCH4t~svi_sf_join$E_POV)
+summary(regression_pov_CH4) #p-value: 8.476e-16
+
+cor.test(svi_sf_join$LFGCH4t,svi_sf_join$E_POV) #0.78
+regression_pov_LFGCH4<- lm(svi_sf_join$LFGCH4t~svi_sf_join$E_POV)
+summary(regression_pov_LFGCH4) #p-value: 5.653e-13
+
+cor.test(svi_sf_join$WWTPCH4t,svi_sf_join$E_POV) #0.97
+regression_pov_WWTPCH4<- lm(svi_sf_join$WWTPCH4t~svi_sf_join$E_POV)
+summary(regression_pov_WWTPCH4) #p-value: < 2.2e-16
+
+cor.test(svi_sf_join$OWCH4t,svi_sf_join$E_POV)#0.98
+regression_pov_OWCH4<- lm(svi_sf_join$OWCH4t~svi_sf_join$E_POV)
+summary(regression_pov_OWCH4) #p-value: < 2.2e-16
+
+cor.test(svi_sf_join$AMCH4t,svi_sf_join$E_POV) #0.05
+regression_pov_AMCH4<- lm(svi_sf_join$AMCH4t~svi_sf_join$E_POV)
+summary(regression_pov_AMCH4) #p-value: 0.6652
+
+
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+Plot_poor_CH4 <- 
+  ggplot(svi_sf_join, aes(x = TotalCH4t, y = E_POV,)) +
+  geom_point(alpha=2, color = "Purple") +
+  geom_smooth(method = "lm", se = FALSE)+
+  xlim(0, 110000) +
+  ylim(0, 1000000)+
+  labs(y= "Population Density", x = "Methane Generation Potential")+
+  ggtitle("Total Methane Generation Potential v.s. Poor Population in California")+
+  mytheme
+  print(Plot_poor_CH4) 
+  
+Plot_poor_LF <- 
+  ggplot(svi_sf_join, aes(x = LFGCH4t, y = E_POV,)) +
+  geom_point(alpha=2, color = "Purple") +
+  geom_smooth(method = "lm", se = FALSE)+
+  xlim(0, 110000) +
+  ylim(0, 750000)+
+  labs(y= "Population Density", x = "Methane Generation Potential")+
+  ggtitle("Landfill CH4 Generation Potential v.s. Poor Population in California")+
+  mytheme
+  print(Plot_poor_LF) 
+
+Plot_poor_WW <- 
+  ggplot(svi_sf_join, aes(x = WWTPCH4t, y = E_POV,)) +
+  geom_point(alpha=2, color = "Purple") +
+  geom_smooth(method = "lm", se = FALSE)+
+  xlim(0, 30000) +
+  ylim(0, 750000)+
+  labs(y= "Population Density", x = "Methane Generation Potential")+
+  ggtitle("Wastewater CH4 Potential v.s. Poor Population in California")+
+  mytheme
+  print(Plot_poor_WW) 
+  
+Plot_poor_OW <- 
+  ggplot(svi_sf_join, aes(x = OWCH4t, y = E_POV,)) +
+  geom_point(alpha=2, color = "Purple") +
+  geom_smooth(method = "lm", se = FALSE)+
+  xlim(0, 30000) +
+  ylim(0, 750000)+
+  labs(y= "Population Density", x = "Methane Generation Potential")+
+  ggtitle("Organic Waste CH4 Potential v.s. Poor Population in California")+
+  mytheme
+  print(Plot_poor_OW)
+  
+Plot_poor_AM <- 
+  ggplot(svi_sf_join, aes(x = AMCH4t, y = E_POV,)) +
+  geom_point(alpha=2, color = "Purple") +
+  geom_smooth(method = "lm", se = FALSE)+
+  xlim(0, 110000) +
+  ylim(0, 400000)+
+  labs(y= "Population Density", x = "Methane Generation Potential")+
+  ggtitle("Manure CH4 Potential v.s. Poor Population in California")+
+  mytheme
+print(Plot_poor_AM)
+
+```
+
+\newpage
+
+# Summary and Conclusions
+
+\newpage
+
+# References
+
+\<add references here if relevant, otherwise delete this section>

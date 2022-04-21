@@ -118,6 +118,14 @@ OW_Plot <-
   ggtitle("Organic Waste Methane Generation Potential")+
   mytheme
   print(OW_Plot)  
+
+cor.test(biogas_pop_join$OWCH4t,biogas_pop_join$Population)
+#cor: 0.96
+regression_pop_OW<- lm(biogas_pop_join$OWCH4t~biogas_pop_join$Population)
+summary(regression_pop_OW)
+#p-value: < 2.2e-16
+#Residual standard error: 515.6 on 56 degrees of freedom
+#Multiple R-squared: 0.99
   
 AM_Plot <- 
   ggplot(biogas_pop_join, aes(x = AMCH4t, y = Population)) +
@@ -128,8 +136,15 @@ AM_Plot <-
   labs(y= "Population Density", x = "Animal Manure")+
   ggtitle("Animal Manure Methane Generation Potential")+
   mytheme
-  print(AM_Plot)  
+  print(AM_Plot)
   
+cor.test(biogas_pop_join$AMCH4t,biogas_pop_join$Population)
+#cor: -0.0018
+regression_pop_AM<- lm(biogas_pop_join$AMCH4t~biogas_pop_join$Population)
+summary(regression_pop_AM)
+#p-value: < 0.989
+#Residual standard error: 14190 on 56 degrees of freedom
+#Multiple R-squared: -0.01785 
   
 WWTP_Plot <- 
   ggplot(biogas_pop_join, aes(x = WWTPCH4t, y = Population)) +
@@ -140,8 +155,16 @@ WWTP_Plot <-
   labs(y= "Population Density", x = "Wastewater")+
   ggtitle("Waste Water Methane Generation Potential")+
   mytheme
-  print(WWTP_Plot)   
+  print(WWTP_Plot)  
   
+cor.test(biogas_pop_join$WWTPCH4t,biogas_pop_join$Population)
+#cor: 0.99
+regression_pop_WWTP<- lm(biogas_pop_join$WWTPCH4t~biogas_pop_join$Population)
+summary(regression_pop_WWTP)
+#p-value: < 2.2e-16
+#Residual standard error: 1128 on 56 degrees of freedom
+#Multiple R-squared:  0.984 
+
 LF_Plot <- 
   ggplot(biogas_pop_join, aes(x = LFGCH4t, y = Population)) +
   geom_point(alpha=2, color = "Blue") +
@@ -151,16 +174,22 @@ LF_Plot <-
   labs(y= "Population Density", x = "Landfill")+
   ggtitle("Landfill Methane Generation Potential")+
   mytheme
-  print(LF_Plot)  
+  print(LF_Plot) 
+  
+cor.test(biogas_pop_join$LFGCH4t,biogas_pop_join$Population)
+#cor: 0.79
+regression_pop_LF<- lm(biogas_pop_join$LFGCH4t~biogas_pop_join$Population)
+summary(regression_pop_LF)
+#p-value: < 1.926e-13
+#Residual standard error: 11680 on 56 degrees of freedom
+#Multiple R-squared:  0.6223 
 
   Combinedplot <- plot_grid(
     OW_Plot,AM_Plot,WWTP_Plot,LF_Plot
   )
   print(Combinedplot)
   
-Cal_population <- cbind(biogas_pop_join$Population,biogas_pop_join$Population, biogas_pop_join$Population, biogas_pop_join$Population)
-Biogas_source <- cbind(biogas_pop_join$OWCH4t,biogas_pop_join$AMCH4t, biogas_pop_join$WWTPCH4t, biogas_pop_join$LFGCH4t)
-matplot(Cal_population,Biogas_source, type='p')
+
 
 
 ```

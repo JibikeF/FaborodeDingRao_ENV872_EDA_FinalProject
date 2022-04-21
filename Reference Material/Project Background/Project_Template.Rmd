@@ -1,16 +1,17 @@
 ---
-output: 
+title: "Exploring the Determinants of Biogas Generation Potential in California"
+author: "Jibikeoluwa Faborode, Yinan Ding, Abhay Rao"
+output:
+  html_document:
+    df_print: paged
   pdf_document:
     keep_tex: yes
     fig_caption: yes
     number_sections: yes
+subtitle: Web address for GitHub repository
 geometry: margin=2.54cm
-title: "Insert title of project here"
-subtitle: "Web address for GitHub repository"
-author: "Name"
 fontsize: 12pt
 mainfont: Times New Roman
-
 ---
 
 \newpage
@@ -23,12 +24,26 @@ mainfont: Times New Roman
 
 ```{r setup, include=FALSE}
 # Set your working directory
+getwd()
 
 # Load your packages
+library(tidyverse)
+library(lubridate)
+library(sf)
+library(mapview)
+library(RColorBrewer)
+library(cowplot)
 
 # Set your ggplot theme
+mytheme <- theme_gray(base_size = 10) +
+  theme(axis.text = element_text(color = "darkgrey"), 
+        legend.position = "bottom")
+
+theme_set(mytheme)
 
 # Load your datasets
+biogas_sf<- st_read('./Data/biomethane/Biomethane.shp')
+svi2018_raw <- read.csv('https://svi.cdc.gov/Documents/Data/2018_SVI_Data/CSV/States_Counties/California_COUNTY.csv')
 
 ```
 
