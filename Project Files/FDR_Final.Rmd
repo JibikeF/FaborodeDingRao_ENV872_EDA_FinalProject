@@ -313,7 +313,106 @@ print(AM_ch4_plot)
 
 # Analysis
 
-## Question 1: \<insert specific question here and add additional subsections for additional questions below, if needed>
+## Question 1: What factors affect biogas generation potential in different counties of California? Could it have potential correlations with the population size?
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+mytheme <- theme_classic(base_size = 12) +
+  theme(axis.text = element_text(color = "black"), 
+        legend.position = "top") 
+
+cor.test(svi_sf_join$TotalCH4t,svi_sf_join$E_TOTPOP)
+#cor:0.819
+regression_pop_CH4<- lm(svi_sf_join$TotalCH4t~svi_sf_join$E_TOTPOP)
+summary(regression_pop_CH4)
+#p-value:4.22e-15
+#Residual standard error: 20420 on 56 degrees of freedom
+#Multiple R-squared: 0.6701
+plot(regression_pop_CH4)
+
+Plot_pop_CH4 <- 
+  ggplot(svi_sf_join, aes(x = TotalCH4t, y = E_TOTPOP)) +
+  geom_point(alpha=2, color = "Purple") +
+  geom_smooth(method = "lm", se = FALSE)+
+  xlim(0, 110000) +
+  ylim(0, 5.0e+06)+
+  labs(y= "Population Density", x = "Biogas Generation Potential")+
+  ggtitle("Biogas Generation Potential v.s. Population in California")+
+  mytheme
+  print(Plot_pop_CH4)  
+
+OW_Plot <- 
+  ggplot(svi_sf_join, aes(x = OWCH4t, y = E_TOTPOP)) +
+  geom_point(alpha=2, color = "Red") +
+  geom_smooth(method = "lm", se = FALSE)+
+  xlim(0, 110000) +
+  ylim(0, 5.0e+06)+
+  labs(y= "Population Density", x = "Organic Waste")+
+  ggtitle("Organic Waste Potential")+
+  mytheme
+
+cor.test(svi_sf_join$OWCH4t,svi_sf_join$E_TOTPOP)
+#cor: 0.96
+regression_pop_OW<- lm(svi_sf_join$OWCH4t~svi_sf_join$E_TOTPOP)
+summary(regression_pop_OW)
+#p-value: < 2.2e-16
+#Residual standard error: 515.6 on 56 degrees of freedom
+#Multiple R-squared: 0.99
+  
+AM_Plot <- 
+  ggplot(svi_sf_join, aes(x = AMCH4t, y = E_TOTPOP)) +
+  geom_point(alpha=2, color = "Blue") +
+  geom_smooth(method = "lm", se = FALSE)+
+  xlim(0, 110000) +
+  ylim(0, 5.0e+06)+
+  labs(y= "Population Density", x = "Animal Manure")+
+  ggtitle("Animal Manure Potential")+
+  mytheme
+  
+cor.test(svi_sf_join$AMCH4t,svi_sf_join$E_TOTPOP)
+#cor: -0.0018
+regression_pop_AM<- lm(svi_sf_join$AMCH4t~svi_sf_join$E_TOTPOP)
+summary(regression_pop_AM)
+#p-value: < 0.989
+#Residual standard error: 14190 on 56 degrees of freedom
+#Multiple R-squared: -0.01785 
+  
+WWTP_Plot <- 
+  ggplot(svi_sf_join, aes(x = WWTPCH4t, y = E_TOTPOP)) +
+  geom_point(alpha=2, color = "Green") +
+  geom_smooth(method = "lm", se = FALSE)+
+  xlim(0, 110000) +
+  ylim(0, 5.0e+06)+
+  labs(y= "Population Density", x = "Wastewater")+
+  ggtitle("Waste Water Potential")+
+  mytheme
+
+cor.test(svi_sf_join$WWTPCH4t,svi_sf_join$E_TOTPOP)
+#cor: 0.99
+regression_pop_WWTP<- lm(svi_sf_join$WWTPCH4t~svi_sf_join$E_TOTPOP)
+summary(regression_pop_WWTP)
+#p-value: < 2.2e-16
+#Residual standard error: 1128 on 56 degrees of freedom
+#Multiple R-squared:  0.984 
+  
+LF_Plot <- 
+  ggplot(svi_sf_join, aes(x = LFGCH4t, y = E_TOTPOP)) +
+  geom_point(alpha=2, color = "Blue") +
+  geom_smooth(method = "lm", se = FALSE)+
+  xlim(0, 110000) +
+  ylim(0, 5.0e+06)+
+  labs(y= "Population Density", x = "Landfill")+
+  ggtitle("Landfill Potential")+
+  mytheme
+  
+cor.test(svi_sf_join$LFGCH4t,svi_sf_join$E_TOTPOP)
+#cor: 0.79
+regression_pop_LF<- lm(svi_sf_join$LFGCH4t~svi_sf_join$E_TOTPOP)
+summary(regression_pop_LF)
+#p-value: < 1.926e-13
+#Residual standard error: 11680 on 56 degrees of freedom
+#Multiple R-squared:  0.6223 
+Combinedplot <- plot_grid(OW_Plot,AM_Plot,WWTP_Plot,LF_Plot)
+  print(Combinedplot)
 
 ## Question 2: Is there a relationship between methane generation potential and impoverished populations?
 
@@ -406,6 +505,8 @@ print(Plot_poor_AM)
 \newpage
 
 # Conclusion
+The null hypothesis to our research question is that there is no correlation between population density and biogas generation potential. We ran a correlation test to test the strength and direction between California population and the total biogas generation potential.  We also ran a simple linear regression model to investigate whether these two variables involves a linear relationship. By looking at the residual plots, we can tell that the regression model fits our data but has outliers that disrupt the model accuracy. The p-value is 4.22e-15, indicating that the result is statistically significant. The multiple R-squared is 0.67, meaning that the independent variables can expalin 67% of the variations in biogas generation potential. Therefore, we are confident in rejecting the null hypothesis. Now we can say the total biogas generation potential in california does have a linear relationship with the population density. However, we still want to know how and what different sources is correlated with population. Subsequently, we ran the same test for each individual biogas sources. Based on the results from running correlation test and linear regression model for each of the biogas generation sources: Organic waste, Animal manure, Wastewater, and Landfill. We found out the the organic waste and wastewater contributes to the highest correlation to the population density, while Animal manure and landfill are less correlated. 
+
 Overall, the analysis conducted show that biogas generation potential across 
 counties in California is positively correlated with the population density. 
 This implies that the higher the population in a specific area, the higher the 
